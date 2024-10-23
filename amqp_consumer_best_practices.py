@@ -7,9 +7,13 @@ exchange_name = 'direct_exchange'
 routing_key = 'direct_routing_key'
 queue_name = 'quorum_queue'
 
+# Set up connection credentials
+credentials = pika.PlainCredentials('vlad', 'vlad')
+
 # Set up connection parameters
 params = pika.ConnectionParameters(
     host=rabbitmq_host,
+    credentials=credentials,  # Add credentials here
     heartbeat=600,  # Keep connection alive
     blocked_connection_timeout=300  # Handle blocked connections
 )
@@ -37,7 +41,7 @@ def callback(ch, method, properties, body):
         print(f"Received message: {message}")
 
         # Simulate message processing
-        time.sleep(5)  # Slow down for demonstration purposes
+        # time.sleep(5)  # Slow down for demonstration purposes
 
         # Manually acknowledge the message
         ch.basic_ack(delivery_tag=method.delivery_tag)

@@ -7,9 +7,13 @@ exchange_name = 'direct_exchange'
 routing_key = 'direct_routing_key'
 queue_name = 'quorum_queue'
 
+# Set up connection credentials
+credentials = pika.PlainCredentials('vlad', 'vlad')
+
 # Set up connection parameters
 params = pika.ConnectionParameters(
     host=rabbitmq_host,
+    credentials=credentials,  # Add credentials here
     heartbeat=600,  # Keep connection alive
     blocked_connection_timeout=300  # Handle blocked connections
 )
